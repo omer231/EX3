@@ -1,55 +1,54 @@
-#ifndef DATE_WRAP_H_
-#define DATE_WRAP_H_
-
 #include <iostream>
+#include <stdio.h>
+#include "exceptions.h"
 using std::cout;
 using std::endl;
+using std:: exception;
 using namespace std;
 extern "C" {
 #include "date.h"
 }
+
 namespace mtm 
 { 
-    struct NegativeDays : public std::exception{};
-}
-
 class DateWrap {
+    private:
+    Date date;
     public:
-    DateWrap(int day, int month, int year);
+    DateWrap(int, int, int);
+
+    DateWrap(Date);
 
     int day();
 
     int month();
 
     int year();
+
+    Date getDate(DateWrap date_wrap);
     
-    DateWrap operator++ (int);
+    void operator++ (int);
+
+    DateWrap operator+(int);
+
+    DateWrap operator+=(int);
+
+    bool operator>(const DateWrap&);
+
+    bool operator<(const DateWrap&);
+
+    bool operator>=(const DateWrap& );
+
+    bool operator<=(const DateWrap&);
+
+    bool operator==(const DateWrap&);
+   
+    friend ostream& operator << (ostream& os, DateWrap date_wrap);
+
+    friend DateWrap operator+(const int& days, const DateWrap date_wrap);
+    
 };
 
-DateWrap toDateWrap(Date date);
-
-Date toDate(DateWrap date_wrap);
-
-void print(DateWrap date);
-
-DateWrap addDays(const DateWrap date_wrap, int days);
-
-DateWrap operator+(const DateWrap date_wrap, int days);
-
-DateWrap operator+(int days, const DateWrap date_wrap);
-
-DateWrap operator+=(const DateWrap date_wrap, int days);
-
-int getDiff(const DateWrap date_wrap1,const DateWrap date_wrap2);
-
-bool operator>(const DateWrap date_wrap1,const DateWrap date_wrap2);
-
-bool operator<(const DateWrap date_wrap1,const DateWrap date_wrap2);
-
-bool operator==(const DateWrap date_wrap1,const DateWrap date_wrap2);
-
-bool operator>=(const DateWrap date_wrap1,const DateWrap date_wrap2);
-
-bool operator<=(const DateWrap date_wrap1,const DateWrap date_wrap2);
-
-#endif //DATE_WRAP_H_
+    ostream& operator << (ostream& os, DateWrap date_wrap);
+    DateWrap operator+(const int& days, const DateWrap date_wrap);
+}
