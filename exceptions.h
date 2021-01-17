@@ -1,14 +1,51 @@
-#ifndef EXCEPTIONS_H_
-#define EXCEPTIONS_H_
+#ifndef EX3_EXCEPTIONS_H
+#define EX3_EXCEPTIONS_H
+using std::exception;
 
-#include <iostream>
-using std::cout;
-using std::endl;
-using namespace std;
+namespace mtm {
+    namespace Exceptions {
+        //PART A
+        class InvalidDate {
+        };
 
-namespace mtm 
-{ 
-    struct NegativeDays : public std::exception{};
+        class NegativeDays {
+        };
+
+        //PART B
+        class InvalidStudent {
+        };
+
+        class AlreadyRegistered {
+        };
+
+        class RegistrationBlocked {
+        };
+
+        class NotRegistered {
+        };
+
+        class AlreadyInvited {
+        };
+
+        class DateMismatch {
+        };
+
+        class InvalidNumber {
+        };
+
+        class InvalidInterval {
+        };
+
+        class NotSupported {
+        };
+
+        //PART C
+        class EventAlreadyExists {
+        };
+
+        class EventDoesNotExist {
+        };
+    }
 }
 
-#endif //EXCEPTIONS_H_
+#endif //EX3_EXCEPTIONS_H
