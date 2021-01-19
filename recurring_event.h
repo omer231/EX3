@@ -6,7 +6,7 @@
 namespace mtm {
     template<class EventType>
     class RecurringEvent : public EventContainer {
-        EventType eventType;
+        EventType *eventType;
     public:
         RecurringEvent(DateWrap first_date, string name, int num_occurrences, int interval_days)
         {
@@ -19,16 +19,16 @@ namespace mtm {
             node *temp = nullptr;
             for (int i = 0; i < num_occurrences; i++) {
                 EventType *nEvent = new EventType(first_date += i, name);
-                //EventType *nEvent(first_date += i, name);
-                //EventType nEvent = new EventType(first_date += i, name);
                 node *newNode = new node(*nEvent, nullptr);
                 if (temp == nullptr) {
                     head = newNode;
                     tail = newNode;
                     temp = newNode;
+                    length += 1;
                 } else {
                     temp->next = newNode;
                     tail = newNode;
+                    length += 1;
                 }
             }
         }

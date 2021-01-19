@@ -21,6 +21,7 @@ namespace mtm {
 
         node *head = nullptr;
         node *tail = nullptr;
+        int length = 0;
 
     public:
         EventContainer()
@@ -84,7 +85,7 @@ namespace mtm {
 
         virtual EventIterator end()
         {
-            return EventIterator(nullptr);
+            return EventIterator(head+length);
         }
     };
 

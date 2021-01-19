@@ -6,15 +6,15 @@
 namespace mtm {
     template<class EventType>
     class OneTimeEvent : public EventContainer {
-        EventType eventType;
+        EventType *eventType;
     public:
         OneTimeEvent(DateWrap date, string name)
         {
             EventType *nEvent = new EventType(date, name);
-            //EventType nEvent = new EventType(date, name);
             node *newNode = new node(*nEvent, nullptr);
             head = newNode;
             tail = newNode;
+            length += 1;
         }
 
         ~OneTimeEvent() override
