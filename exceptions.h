@@ -1,51 +1,49 @@
-#ifndef EX3_EXCEPTIONS_H
-#define EX3_EXCEPTIONS_H
-using std::exception;
-
+#ifndef EX302_EXCEPTIONS_H
+#define EX302_EXCEPTIONS_H
 namespace mtm {
-    namespace Exceptions {
-        //PART A
-        class InvalidDate {
-        };
+    class Exceptions : public std::exception {
+    };
 
-        class NegativeDays {
-        };
+    //PART A
+    class InvalidDate : public Exceptions {
+    };
 
-        //PART B
-        class InvalidStudent {
-        };
+    class NegativeDays : public Exceptions {
+    };
 
-        class AlreadyRegistered {
-        };
+    //PART B
+    class InvalidStudent : public Exceptions {
+    };
 
-        class RegistrationBlocked {
-        };
+    class AlreadyRegistered : public Exceptions {
+    };
 
-        class NotRegistered {
-        };
+    class RegistrationBlocked : public Exceptions {
+    };
 
-        class AlreadyInvited {
-        };
+    class NotRegistered : public Exceptions {
+    };
 
-        class DateMismatch {
-        };
+    class AlreadyInvited : public Exceptions {
+    };
 
-        class InvalidNumber {
-        };
+    class DateMismatch : public Exceptions {
+    };
 
-        class InvalidInterval {
-        };
+    class InvalidNumber : public Exceptions {
+    };
 
-        class NotSupported {
-        };
+    class InvalidInterval : public Exceptions {
+    };
 
-        //PART C
-        class EventAlreadyExists {
-        };
+    class NotSupported : public Exceptions {
+    };
 
-        class EventDoesNotExist {
-        };
-    }
+    //PART C
+    class EventAlreadyExists : public Exceptions {
+    };
+
+    class EventDoesNotExist : public Exceptions {
+    };
 }
-
-#endif //EX3_EXCEPTIONS_H
+#endif //EX302_EXCEPTIONS_H
