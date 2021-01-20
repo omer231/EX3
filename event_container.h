@@ -69,12 +69,12 @@ namespace mtm {
 
             friend bool operator==(EventIterator iter1, EventIterator iter2)
             {
-                return &iter1 == &iter2;
+                return iter1.iterator == iter2.iterator;
             }
 
             friend bool operator!=(EventIterator iter1, EventIterator iter2)
             {
-                return !operator==(std::move(iter1), std::move(iter2));
+                return iter1.iterator != iter2.iterator;
             }
         };
 
@@ -85,7 +85,8 @@ namespace mtm {
 
         virtual EventIterator end()
         {
-            return EventIterator(head+length);
+            //return EventIterator(head+length);
+            return EventIterator(nullptr);
         }
     };
 
