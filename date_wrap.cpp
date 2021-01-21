@@ -124,6 +124,16 @@ namespace mtm{
         }
         return false;
     }
+
+    bool DateWrap::operator!=(const DateWrap& date_wrap)
+    {
+        if((dateCompare(date, date_wrap.date))==0)
+        {
+            return false;
+        }
+        return true;
+    }
+
     ostream& operator << (ostream& os, DateWrap date_wrap)
     {   
         os << date_wrap.day() << "/" << date_wrap.month() << "/" << date_wrap.year();

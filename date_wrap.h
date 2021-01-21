@@ -42,6 +42,8 @@ class DateWrap {
     bool operator<=(const DateWrap&);
 
     bool operator==(const DateWrap&);
+
+    bool operator!=(const DateWrap&);
    
     friend ostream& operator << (ostream& os, DateWrap date_wrap);
 
