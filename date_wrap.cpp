@@ -20,7 +20,7 @@ namespace mtm{
 
     DateWrap::DateWrap(Date date_insert)
     {
-        date=dateCopy(date_insert);
+        date=date_insert;
     }
 
     Date DateWrap::getDate(DateWrap date_wrap)
@@ -60,7 +60,7 @@ namespace mtm{
         {
             throw mtm::NegativeDays();
         }
-        Date new_date=dateCopy(this->date);
+        Date new_date=this->date;
         for(int i=0; i<days; i++)
         {
             dateTick(new_date);
@@ -68,8 +68,6 @@ namespace mtm{
         DateWrap new_date_wrap(new_date);
         return new_date_wrap;
     }
-    
-    
 
    DateWrap  DateWrap::operator+=(int days)
     {
@@ -138,6 +136,11 @@ namespace mtm{
         return true;
     }
 
+    DateWrap::~DateWrap()
+    {
+        dateDestroy(date);
+    }
+
     ostream& operator << (ostream& os, DateWrap date_wrap)
     {   
         os << date_wrap.day() << "/" << date_wrap.month() << "/" << date_wrap.year();
@@ -150,7 +153,7 @@ namespace mtm{
         {
             throw mtm::NegativeDays();
         }
-        Date new_date=dateCopy(date_wrap.date);
+        Date new_date=date_wrap.date;
         for(int i=0; i<days; i++)
         {
             dateTick(new_date);
@@ -158,6 +161,7 @@ namespace mtm{
         DateWrap new_date_wrap(new_date);
         return new_date_wrap;
     }
+    
 }
 
 
