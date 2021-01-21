@@ -44,13 +44,15 @@ class DateWrap {
     bool operator==(const DateWrap&);
 
     bool operator!=(const DateWrap&);
+
+    ~DateWrap();
    
     friend ostream& operator << (ostream& os, DateWrap date_wrap);
 
     friend DateWrap operator+(const int& days, const DateWrap date_wrap);
-    
 };
-
+    
     ostream& operator << (ostream& os, DateWrap date_wrap);
+
     DateWrap operator+(const int& days, const DateWrap date_wrap);
 }
