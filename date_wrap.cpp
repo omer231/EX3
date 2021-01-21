@@ -12,6 +12,10 @@ namespace mtm{
     DateWrap::DateWrap(int day, int month, int year)
     {
         date=dateCreate(day, month, year);
+        if(!date)
+        {
+            throw InvalidDate();
+        }
     }
 
     DateWrap::DateWrap(Date date_insert)
