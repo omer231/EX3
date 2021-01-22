@@ -18,6 +18,8 @@ class DateWrap {
     DateWrap(int, int, int);
 
     DateWrap(Date);
+    
+    DateWrap(DateWrap const &date_wrap);
 
     int day();
 
