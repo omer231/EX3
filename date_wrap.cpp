@@ -22,6 +22,11 @@ namespace mtm{
     {
         date=date_insert;
     }
+    
+    DateWrap::DateWrap(DateWrap const &date_wrap)
+    {
+        date = dateCopy(date_wrap.date);
+    }
 
     Date DateWrap::getDate(DateWrap date_wrap)
     {
@@ -66,6 +71,7 @@ namespace mtm{
             dateTick(new_date);
         }
         DateWrap new_date_wrap(new_date);
+        dateDestroy(new_date);
         return new_date_wrap;
     }
 
@@ -159,6 +165,7 @@ namespace mtm{
             dateTick(new_date);
         }
         DateWrap new_date_wrap(new_date);
+        dateDestroy(new_date);
         return new_date_wrap;
     }
     
