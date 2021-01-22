@@ -1,8 +1,6 @@
 #ifndef EX302_BASE_EVENT_H
 #define EX302_BASE_EVENT_H
 
-#include <utility>
-
 #include "../partA/date_wrap.h"
 #include "int_list.h"
 
@@ -10,24 +8,24 @@ namespace mtm {
     class BaseEvent {
     protected:
         /**
-         * eventDate - DateWrap with the event's date
-         * eventName - string with the event's name
-         * eventParticipants - IntList with events participants
+         * event_date - DateWrap with the event's date
+         * event_name - string with the event's name
+         * event_participants - IntList with events participants
          */
-        DateWrap eventDate;
-        string eventName;
-        IntList eventParticipants;
+        DateWrap event_date;
+        string event_name;
+        IntList event_participants;
     public:
 
         /**
          * BaseEvent Constructor
-         * @param date eventDate - date
-         * @param name eventName - name
-         *             eventParticipants - empty list
+         * @param date event_date - date
+         * @param name event_name - name
+         *
          */
-        BaseEvent(DateWrap date, string name) : eventDate(date),
-                                                eventName(std::move(name)),
-                                                eventParticipants()
+        BaseEvent(DateWrap date, string name) : event_date(date),
+                                                event_name(name),
+                                                event_participants()
         {}
 
         /**
@@ -37,46 +35,73 @@ namespace mtm {
 
         /**
          * registerParticipant - pure virtual
-         * @param student student to attempt to insert in eventParticipant
+         * @param student student to attempt to insert in event_participant
          */
         virtual void registerParticipant(int student) = 0;
 
-        virtual bool unregisterParticipant(int student)
+        /**
+         * unregisterParticipant
+         * @param student student to attempt to unregister from event
+         */
+        virtual void unregisterParticipant(int student)
         {
-            if (!mtm::IntList::validStudentId(student)) {
+            if (!mtm::IntList::studentIdIsValid(student)) {
                 throw InvalidStudent();
             } else {
-                bool result = eventParticipants.doesStudentExist(student);
+                bool result = event_participants.studentExists(student);
                 if (!result) {
                     throw NotRegistered();
                 } else {
-                    eventParticipants.listRemoveByValue(student);
+                    event_participants.removeByValue(student);
                 }
             }
         }
 
+        /**
+         * printShort
+         * @param os
+         * @return event_name event_date
+         */
         std::ostream &printShort(std::ostream &os)
         {
-            os << eventName << " " << eventDate << endl;
+            os << event_name << " " << event_date << endl;
             return os;
         }
 
+        /**
+         * printLong
+         * @param os
+         * @return event_name event_date
+         *         event_participants
+         */
         std::ostream &printLong(std::ostream &os)
         {
-            os << eventName << " " << eventDate << eventParticipants;
+            os << event_name << " " << event_date << event_participants;
             return os;
         }
 
+        /**
+         * clone - pure virtual
+         * @return new identical event
+         */
         virtual BaseEvent *clone() const = 0;
 
+        /**
+         * getEventDate const
+         * @return the event's date, DateWrap
+         */
         DateWrap getEventDate() const
         {
-            return eventDate;
+            return event_date;
         }
 
+        /**
+         * getEventName const
+         * @return the event's name, string
+         */
         string getEventName() const
         {
-            return eventName;
+            return event_name;
         }
     };
 }

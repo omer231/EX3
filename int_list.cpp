@@ -8,7 +8,7 @@ namespace mtm {
 
     IntList::IntList(const IntList &list) : head(nullptr)
     {
-        listNode *temp = list.head;
+        ListNode *temp = list.head;
         while (temp != nullptr) {
             insertStudent(temp->student);
             temp = temp->next;
@@ -17,15 +17,16 @@ namespace mtm {
 
     IntList &IntList::operator=(IntList list)
     {
-        //IntList temp = list;
-        std::swap(list.head, head);
+        ListNode *temp(head);
+        head = list.head;
+        list.head = temp;
         return *this;
     }
 
     IntList::~IntList()
     {
         while (!listIsEmpty()) {
-            listRemove();
+            removeFirst();
         }
     }
 
@@ -34,7 +35,7 @@ namespace mtm {
         return head == nullptr;
     }
 
-    bool IntList::validStudentId(int student)
+    bool IntList::studentIdIsValid(int student)
     {
         if (student < STUDENT_ID_LIMIT_LOW || student > STUDENT_ID_LIMIT_HIGH) {
             return false;
@@ -42,12 +43,12 @@ namespace mtm {
         return true;
     }
 
-    bool IntList::doesStudentExist(int student)
+    bool IntList::studentExists(int student)
     {
         if (listIsEmpty()) {
             return false;
         }
-        listNode *temp = head;
+        ListNode *temp = head;
         if (temp->student == student) {
             return true;
         }
@@ -63,58 +64,58 @@ namespace mtm {
         return false;
     }
 
-    intListReturns IntList::insertStudent(int student)
+    InsertResult IntList::insertStudent(int student)
     {
-        if (!validStudentId(student)) {
+        if (!studentIdIsValid(student)) {
             return INVALID_INSERT;
         }
-        if (doesStudentExist(student)) {
+        if (studentExists(student)) {
             return REPEATED_INSERT;
         }
-        auto *newNode = new listNode;
-        newNode->student = student;
-        newNode->next = nullptr;
+        ListNode *new_node = new ListNode;
+        new_node->student = student;
+        new_node->next = nullptr;
         if (listIsEmpty() || head->student > student) {
-            newNode->next = head;
-            head = newNode;
+            new_node->next = head;
+            head = new_node;
             return SUCCESSFUL_INSERT;
         } else {
-            listNode *curr = head;
-            while (curr->next != nullptr && curr->next->student < newNode->student) {
-                curr = curr->next;
+            ListNode *current = head;
+            while (current->next != nullptr && current->next->student < new_node->student) {
+                current = current->next;
             }
-            newNode->next = curr->next;
-            curr->next = newNode;
+            new_node->next = current->next;
+            current->next = new_node;
             return SUCCESSFUL_INSERT;
         }
 
     }
 
-    void IntList::listRemove()
+    void IntList::removeFirst()
     {
         if (listIsEmpty()) {
             return;
         }
-        listNode *temp = head;
+        ListNode *temp = head;
         head = head->next;
         delete temp;
     }
 
-    void IntList::listRemoveByValue(int student)
+    void IntList::removeByValue(int student)
     {
-        if (!doesStudentExist(student)) {
+        if (!studentExists(student)) {
             return;;
         }
         if (head->student == student) {
-            listRemove();
+            removeFirst();
             return;
         }
-        listNode *temp = head;
+        ListNode *temp = head;
         while (temp->next != nullptr) {
             if (temp->next->student == student) {
-                listNode *curr = temp->next;
+                ListNode *current = temp->next;
                 temp->next = temp->next->next;
-                delete curr;
+                delete current;
                 return;
             }
             temp = temp->next;
@@ -124,7 +125,7 @@ namespace mtm {
 
     std::ostream &operator<<(std::ostream &os, IntList &list)
     {
-        listNode *temp;
+        ListNode *temp;
         os << std::endl;
         if (!list.listIsEmpty()) {
             for (temp = list.head; temp != nullptr; temp = temp->next) {

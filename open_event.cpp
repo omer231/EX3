@@ -1,7 +1,5 @@
 #include "open_event.h"
 
-#include <utility>
-
 namespace mtm {
     OpenEvent::OpenEvent(DateWrap date, string name) : BaseEvent(date, std::move(name))
     {}
@@ -14,7 +12,7 @@ namespace mtm {
 
     void OpenEvent::registerParticipant(int student)
     {
-        int result = eventParticipants.insertStudent(student);
+        int result = event_participants.insertStudent(student);
         if (result == INVALID_INSERT) {
             throw InvalidStudent();
         }

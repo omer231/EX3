@@ -1,53 +1,38 @@
 #include "festival.h"
 
 namespace mtm {
-    Festival::Festival(DateWrap date) : festivalDate(date)
+    Festival::Festival(DateWrap date) : festival_date(date)
     {}
-
-    /**
-    Festival::~Festival()
-    = default;
-    */
 
     Festival::~Festival()
     {
-        while (head != nullptr) {
-            node* temp = head;
+        while (!containerIsEmpty()) {
+            Node *temp = head;
             head = head->next;
             delete &temp->event;
             delete temp;
-            length--;
         }
     }
 
     void Festival::add(const BaseEvent &event)
     {
-        if (!(festivalDate == event.getEventDate())) {
+        if (festival_date != event.getEventDate()) {
             throw DateMismatch();
         }
-        BaseEvent *newEvent = event.clone();
-        node *newNode = new node(*newEvent, nullptr);
-        if (head == nullptr) {
-            head = newNode;
-            //tail = newNode;
-            length += 1;
+        BaseEvent *new_event = event.clone();
+        Node *new_node = new Node(*new_event, nullptr);
+        if (containerIsEmpty() || head->event.getEventName() > new_node->event.getEventName()) {
+            new_node->next = head;
+            head = new_node;
+            return;
+        } else {
+            Node *current = head;
+            while (current->next != nullptr && current->next->event.getEventName() < new_node->event.getEventName()) {
+                current = current->next;
+            }
+            new_node->next = current->next;
+            current->next = new_node;
             return;
         }
-        node *curr = head;
-        node *currNext = head->next;
-        while (currNext != nullptr) {
-            //cout<<(curr->event.getEventName() > newNode->event.getEventName())<<endl;
-            if (curr->event.getEventName() > newNode->event.getEventName()) {   //FIX- LOWER FIRST!!
-                newNode->next = currNext;
-                curr->next = newNode;
-                length += 1;
-                return;
-            }
-            curr = currNext;
-            currNext = curr->next;
-        }
-        curr->next = newNode;
-        length += 1;
-        //tail = newNode;
     }
 }
