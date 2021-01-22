@@ -15,12 +15,12 @@ namespace mtm {
             node(BaseEvent &event, node *next) : event(event), next(next)
             {}
 
-            explicit node(node *newNode) : event(newNode->event), next(newNode->next)
+            node(node const &newNode) : event(newNode.event), next(newNode.next)
             {}
         };
 
         node *head = nullptr;
-        node *tail = nullptr;
+        //node *tail = nullptr;
         int length = 0;
 
     public:

@@ -8,6 +8,8 @@ namespace mtm {
     public:
         OpenEvent(DateWrap date, string name);
 
+        OpenEvent(OpenEvent const &open_event);
+
         ~OpenEvent() override;
 
         void registerParticipant(int student) override;

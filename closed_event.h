@@ -5,9 +5,11 @@
 
 namespace mtm {
     class ClosedEvent : public BaseEvent {
-        IntList *invited;
+        IntList invited;
     public:
         ClosedEvent(DateWrap date, string name);
+
+        //ClosedEvent(ClosedEvent const &closed_event);
 
         ~ClosedEvent() override;
 

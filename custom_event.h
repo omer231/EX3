@@ -9,8 +9,11 @@ namespace mtm {
     private:
         CanRegister canRegister;
     public:
-        CustomEvent(DateWrap date, string name, CanRegister condition) :
-                BaseEvent(date, name), canRegister(condition)
+        CustomEvent(DateWrap date, string name, CanRegister condition) : BaseEvent(date, name),
+                                                                         canRegister(condition)
+        {}
+
+        CustomEvent(CustomEvent const &custom_event) : BaseEvent(custom_event), canRegister(custom_event.canRegister)
         {}
 
         ~CustomEvent() override
@@ -18,13 +21,13 @@ namespace mtm {
 
         void registerParticipant(int student) override
         {
+            if (!eventParticipants.validStudentId(student)) {
+                throw InvalidStudent();
+            }
             if (!canRegister(student)) {
                 throw RegistrationBlocked();
             } else {
-                int result = eventParticipants->insertStudent(student);
-                if (result == INVALID_INSERT) {
-                    throw InvalidStudent();
-                }
+                int result = eventParticipants.insertStudent(student);
                 if (result == REPEATED_INSERT) {
                     throw AlreadyRegistered();
                 }

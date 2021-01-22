@@ -9,46 +9,61 @@
 namespace mtm {
     class BaseEvent {
     protected:
-        DateWrap *eventDate;
+        /**
+         * eventDate - DateWrap with the event's date
+         * eventName - string with the event's name
+         * eventParticipants - IntList with events participants
+         */
+        DateWrap eventDate;
         string eventName;
-        IntList *eventParticipants;
+        IntList eventParticipants;
     public:
-        BaseEvent(DateWrap date, string name) : eventDate(new DateWrap(date.day(), date.month(), date.year())),
-                                                eventName(std::move(name))
-        {
-            eventParticipants = new IntList;
-        }
 
         /**
-        BaseEvent(BaseEvent const &base_event) : eventDate(base_event.eventDate),
-                                                 eventName(base_event.eventName),
-                                                 eventParticipants(base_event.eventParticipants)
-        {}
+         * BaseEvent Constructor
+         * @param date eventDate - date
+         * @param name eventName - name
+         *             eventParticipants - empty list
          */
+        BaseEvent(DateWrap date, string name) : eventDate(date),
+                                                eventName(std::move(name)),
+                                                eventParticipants()
+        {}
 
+        /**
+         * BaseEvent Destructor
+         */
         virtual ~BaseEvent() = default;
 
+        /**
+         * registerParticipant - pure virtual
+         * @param student student to attempt to insert in eventParticipant
+         */
         virtual void registerParticipant(int student) = 0;
 
         virtual bool unregisterParticipant(int student)
         {
-            bool result = eventParticipants->doesStudentExist(student);
-            if (!result) {
-                throw NotRegistered();
+            if (!mtm::IntList::validStudentId(student)) {
+                throw InvalidStudent();
             } else {
-                eventParticipants->listRemoveByValue(student);
+                bool result = eventParticipants.doesStudentExist(student);
+                if (!result) {
+                    throw NotRegistered();
+                } else {
+                    eventParticipants.listRemoveByValue(student);
+                }
             }
         }
 
         std::ostream &printShort(std::ostream &os)
         {
-            os << eventName << " " << *eventDate << endl;
+            os << eventName << " " << eventDate << endl;
             return os;
         }
 
         std::ostream &printLong(std::ostream &os)
         {
-            os << eventName << " " << *eventDate << *eventParticipants;
+            os << eventName << " " << eventDate << eventParticipants;
             return os;
         }
 
@@ -56,7 +71,7 @@ namespace mtm {
 
         DateWrap getEventDate() const
         {
-            return *eventDate;
+            return eventDate;
         }
 
         string getEventName() const

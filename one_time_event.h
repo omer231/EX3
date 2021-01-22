@@ -13,12 +13,17 @@ namespace mtm {
             EventType *nEvent = new EventType(date, name);
             node *newNode = new node(*nEvent, nullptr);
             head = newNode;
-            tail = newNode;
+            //tail = newNode;
             length += 1;
         }
 
         ~OneTimeEvent() override
-        = default;
+        {
+            node *temp = head;
+            delete &temp->event;
+            delete temp;
+            length--;
+        }
 
         void add(BaseEvent const &event) override
         {

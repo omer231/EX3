@@ -3,7 +3,8 @@
 
 #include <ostream>
 
-const int STUDENT_ID_LIMIT = 1324567891;
+const int STUDENT_ID_LIMIT_LOW = 1;
+const int STUDENT_ID_LIMIT_HIGH = 1234567890;
 
 namespace mtm {
     struct listNode {

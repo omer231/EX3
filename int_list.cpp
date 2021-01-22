@@ -24,18 +24,9 @@ namespace mtm {
 
     IntList::~IntList()
     {
-        while (!listIsEmpty()){
+        while (!listIsEmpty()) {
             listRemove();
         }
-        /*
-        listNode *curr = head;
-        listNode *next;
-        while (curr != nullptr) {
-            next = curr->next;
-            delete curr;
-            curr = next;
-        }
-         */
     }
 
     bool IntList::listIsEmpty()
@@ -45,7 +36,7 @@ namespace mtm {
 
     bool IntList::validStudentId(int student)
     {
-        if (student < 0 || student > STUDENT_ID_LIMIT) {
+        if (student < STUDENT_ID_LIMIT_LOW || student > STUDENT_ID_LIMIT_HIGH) {
             return false;
         }
         return true;
