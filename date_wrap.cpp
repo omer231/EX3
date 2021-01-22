@@ -165,7 +165,6 @@ namespace mtm{
             dateTick(new_date);
         }
         DateWrap new_date_wrap(new_date);
-        dateDestroy(new_date);
         return new_date_wrap;
     }
     
