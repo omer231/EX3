@@ -43,7 +43,8 @@ namespace mtm
             return event1->getEventName()<event2->getEventName();
         }
         return event1->getEventDate()<event2->getEventDate();} );
-       for (std::list<BaseEvent*>::const_iterator schedule_it = event_filter_lst.begin(); schedule_it != event_filter_lst.end(); ++schedule_it){
+       for (std::list<BaseEvent*>::const_iterator schedule_it = event_filter_lst.begin(); 
+       schedule_it != event_filter_lst.end(); ++schedule_it){
             Func f;
             const mtm::BaseEvent* event = (*schedule_it);
             if(f(*event))
@@ -62,7 +63,8 @@ namespace mtm
     }
     template <class Func> void printSomeEvents(Func func) const
     {
-       for (std::list<BaseEvent*>::const_iterator schedule_it = event_lst.begin(); schedule_it != event_lst.end(); ++schedule_it){
+       for (std::list<BaseEvent*>::const_iterator schedule_it = event_lst.begin(); 
+       schedule_it != event_lst.end(); ++schedule_it){
             Func f;
             const mtm::BaseEvent* event = (*schedule_it);
             if(f(*event))
