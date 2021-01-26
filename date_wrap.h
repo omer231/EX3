@@ -1,3 +1,5 @@
+#ifndef EX302_DATEWRAP_H
+#define EX302_DATEWRAP_H
 #include <iostream>
 #include <stdio.h>
 #include "exceptions.h"
@@ -58,3 +60,4 @@ class DateWrap {
 
     DateWrap operator+(const int& days, const DateWrap date_wrap);
 }
+#endif
